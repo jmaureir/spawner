@@ -1,0 +1,20 @@
+CXX=g++ -g 
+TARGET=spawner
+SRC=main.cpp Spawner.cc Daemon.cc Thread.cc 
+OBJECTS=$(addsuffix .o, $(basename $(SRC)))
+LIBS=-pthread -D_REENTRANT -lrt
+
+all: main
+
+%.o : %.cc
+		$(CXX) -c $<
+
+.cpp.o:
+	${CXX} -c $<
+
+main:	$(OBJECTS)
+		$(CXX) *.o -o $(TARGET) $(LIBS)
+
+clean:
+		rm *.o
+		rm $(TARGET)
